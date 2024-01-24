@@ -1,0 +1,109 @@
+<?php
+
+namespace App\Http\Resources\Tenant;
+
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
+
+/**
+ * Class PurchaseCollection
+ *
+ * @package App\Http\Resources\Tenant
+ */
+class PurchaseCollection extends ResourceCollection
+{
+    /**
+     * Transform the resource collection into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Collection
+     */
+    public function toArray($request)
+    {
+        return $this->collection->transform(function($row, $key) {
+
+            /** @var \App\Models\Tenant\Purchase  $row */
+            return $row->getCollectionData();
+            /** Pasado al modelo */
+            $total = $row->total;
+            if($row->total_perception)
+            {
+                $total += round($row->total_perception, 2);
+            }
+            if($row->document_type->id=="07" && $row->document_type->id!="11"){
+                $total_exportation  =-$row->total_exportation;
+                $total_free         =-$row->total_free;
+                $total_unaffected   =-$row->total_unaffected;
+                $total_exonerated   =-$row->total_exonerated;
+                $total_taxed        =-$row->total_taxed;
+                $total_igv          =-$row->total_igv;
+                $total_perception   =-$row->total_perception;
+                $total              =$total*-1;
+            }
+            elseif($row->document_type->id!="07" && $row->document_type->id=="11"){
+                $total_exportation  =0;
+                $total_free         =0;
+                $total_unaffected   =0;
+                $total_exonerated   =0;
+                $total_taxed        =0;
+                $total_igv          =0;
+                $total_perception   =0;
+            }
+            else{
+                $total_exportation  =$row->total_exportation;
+                $total_free         =$row->total_free;
+                $total_unaffected   =$row->total_unaffected;
+                $total_exonerated   =$row->total_exonerated;
+                $total_taxed        =$row->total_taxed;
+                $total_igv          =$row->total_igv;
+                $total_perception   =$row->total_perception;
+            }
+            return [
+                'id' => $row->id,
+                'document_type_id' => $row->document_type->id,
+                'document_type_description' => $row->document_type->description,
+                'group_id' => $row->group_id,
+                'soap_type_id' => $row->soap_type_id,
+                'date_of_issue' => $row->date_of_issue->format('Y-m-d'),
+                'date_of_due' => ($row->date_of_due) ? $row->date_of_due->format('Y-m-d'):'-',
+                'number' => $row->number_full,
+                'supplier_name' => $row->supplier->name,
+                'supplier_number' => $row->supplier->number,
+                'currency_type_id' => $row->currency_type_id,
+                'total_exportation' => $row->total_exportation,
+                'total_free' => number_format($row->total_free, 2, ".",""),
+                'total_unaffected' => number_format($row->total_unaffected, 2, ".",""),
+                'total_exonerated' => number_format($row->total_exonerated, 2, ".",""),
+                'total_taxed' => number_format($row->total_taxed, 2, ".",""),
+                'total_igv' => number_format($row->total_igv, 2, ".",""),
+                'total_perception' => number_format($row->total_perception, 2, ".",""),
+                'total' => number_format($total, 2, ".",""),
+                'state_type_id' => $row->state_type_id,
+                'state_type_description' => $row->state_type->description,
+                'state_type_payment_description' => $row->total_canceled ? 'Pagado':'Pendiente de pago',
+                // 'payment_method_type_description' => isset($row->purchase_payments['payment_method_type']['description'])?$row->purchase_payments['payment_method_type']['description']:'-',
+                'created_at' => $row->created_at->format('Y-m-d H:i:s'),
+                'updated_at' => $row->updated_at->format('Y-m-d H:i:s'),
+                'payments' => $row->purchase_payments->transform(function($row, $key) {
+                    return [
+                        'id' => $row->id,
+                        'payment_method_type_description' => $row->payment_method_type->description,
+                        'reference' => $row->reference,
+                        'payment' => $row->payment,
+                        'payment_method_type_id' => $row->payment_method_type_id,
+                    ];
+                }),
+                'items' => $row->items->transform(function($row, $key) {
+                    return [
+                        'key' => $key + 1,
+                        'id' => $row->id,
+                        'description' => $row->item->description,
+                        'quantity' => round($row->quantity,2)
+                    ];
+                }),
+                'print_a4' => url('')."/purchases/print/{$row->external_id}/a4",
+            ];
+        });
+    }
+
+}

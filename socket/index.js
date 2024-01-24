@@ -1,0 +1,49 @@
+const socket = require('socket.io');
+const config = require("./config.js");
+const fs = require("fs");
+let server;
+
+const { Server } = socket;
+
+if(!config.production){
+    //se usa cuando este en modo local
+    server = require("http").createServer();
+}else {
+    var https = require("https");
+    //se usa cuando este en el servidor
+    server = https.createServer({
+        key:fs.readFileSync(config.key),
+        cert:fs.readFileSync(config.cert),
+        requestCert: false,
+        rejectUnauthorized: false
+    });
+}
+
+const io = new Server(server,{
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    },
+});
+
+
+
+io.on('connection',(socket) => {
+
+    socket.on('venta-completada',() => {
+        socket.broadcast.emit('venta-completada',true); //emito a todos excepto a mi
+    })
+    socket.on('mesa-ocupada',() => {
+        socket.broadcast.emit('mesa-ocupada',true); //emito a todos excepto a mi
+    })
+
+    socket.on('liberar-mesa', (payload) => {
+        socket.broadcast.emit('liberar-mesa', payload); //emito a todos excepto a mi
+    })
+})
+
+
+server.listen(config.port);
+
+
+

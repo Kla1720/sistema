@@ -1,0 +1,205 @@
+.bus{
+    width:100%;
+    height:100%;
+    position:absolute;
+    overflow: hidden;
+    background-color: #ffff;
+    display: flex;
+    // padding: 20px;
+    
+}
+
+
+
+.content-bus{
+    position: relative;
+    width:100%;
+    height:100%;
+    border-bottom: 1px solid #bebdbd;
+    border-top: 1px solid #a6a4a4;
+}
+
+.element {
+    width: 51px;
+    /* height: 39px; */
+    height: 38px;
+    position: absolute;
+    text-align: center;
+    /* background: blue; */
+    /* box-shadow: 0 0 5px black; */
+    cursor: move;
+    z-index: 1;
+}
+
+.element > span{
+    position: absolute;
+    left: 55%;
+    top: 7px;
+    user-select: none;
+}
+
+.content-seat{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* position: relative; */
+}
+
+.seat{
+
+    width: 65.333px;
+    height: 51px;
+    /* background-color: aqua; */
+    border: 1px solid #000;
+    position: relative;
+
+}
+
+.cls-selected{fill:green;stroke:#000;stroke-miterlimit:10;}
+.cls-ra{fill:#fff;stroke:#000;stroke-miterlimit:10;}
+.cls-rb{fill:gray;stroke:#000;stroke-miterlimit:10;}
+.cls-fa{fill:#fff;stroke:red;stroke-miterlimit:10;}
+.cls-fb{fill:pink;stroke:red;stroke-miterlimit:10;}
+.cls-ma{fill:#fff;stroke:blue;stroke-miterlimit:10;}
+.cls-mb{fill:royalblue;stroke:blue;stroke-miterlimit:10;}
+
+.str1 {
+    stroke: #222;
+    stroke-width: 0.537825
+}
+
+.str2 {
+    stroke: #222;
+    stroke-width: 0.43026
+}
+
+.str0 {
+    stroke: #222;
+    stroke-width: 0.43026;
+}
+
+.fil3 {
+    fill: none
+}
+
+.fil2 {
+    fill: #fff
+}
+
+.fil1 {
+    fill: #fff
+}
+
+.fil0 {
+    fill: #fff
+}
+
+.fil4 {
+    fill: #fff
+}
+.str23 {
+    stroke: #fff;
+    stroke-width: 2.14746
+}
+
+.str03 {
+    stroke: #373435;
+    stroke-width: 1.07373
+}
+
+.str13 {
+    stroke: #444242;
+    stroke-width: 0.536865
+}
+
+.fil03 {
+    fill: #fff
+}
+
+.fil23 {
+    fill: #000
+}
+
+.fil13 {
+    fill: #fff
+}
+
+.str49 {
+    stroke: #848688;
+    stroke-width: 0.3525
+}
+
+.str09 {
+    stroke: #373435;
+    stroke-width: 0.3525
+}
+
+.str29 {
+    stroke: #373435;
+    stroke-width: 0.17625
+}
+
+.str19 {
+    stroke: #373435;
+    stroke-width: 0.141
+}
+
+.str39 {
+    stroke: #373435;
+    stroke-width: 0.3525;
+    stroke-dasharray: 1.762500 1.762500 3.525000 1.762500
+}
+
+.fil19 {
+    fill: none
+}
+
+.fil29 {
+    fill: #FEFEFE
+}
+
+.fil09 {
+    fill: #1c84c6
+}
+
+.str111 {
+    stroke: #373435;
+    stroke-width: 0.357143
+}
+
+.str011 {
+    stroke: #373435;
+    stroke-width: 0.357143
+}
+
+.fil111 {
+    fill: none
+}
+
+.fil011 {
+    fill: #1c84c6
+}
+
+.fil05 {
+    fill: #373435
+}
+
+.fil07 {
+    fill: #373435
+}
+
+/* .reservado {
+    animation-name: reservado;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
+} */
+
+@keyframes reservado{
+    from {fill: #666262;}
+    to {fill: #b7b7b7;}
+}
