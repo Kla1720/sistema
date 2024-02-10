@@ -135,6 +135,8 @@ if ($hostname) {
                 Route::post('/guardar', 'Tenant\Api\MobileGuiaFacilController@guardarTransportista');
                 Route::post('/actualizar', 'Tenant\Api\MobileGuiaFacilController@guardarTransportista');
                 Route::delete('/eliminar/{id}', 'Tenant\Api\MobileGuiaFacilController@eliminarTransportista');
+//                Route::delete('/transportes/programaciones/{programacion}/{terminal}/delete', 'TuControlador@deleteRuta');
+
             });
 
 //            Route::prefix('dispatch_carrier')->group(function () {

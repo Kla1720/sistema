@@ -2,6 +2,8 @@
 <div class="row">
     <div class="col-md-12 pt-2">
         <div style="overflow-x:auto;overflow-y:hidden;">
+            <div class="mt-2" :style="{ position: 'relative', width: anchoVehiculo + 'px', height: '100%', margin: ' 0 auto', zoom: '96%', display: 'flex', flexDirection: 'column' }">
+
             <div class="mt-2" :style="{position:'relative',width:anchoVehiculo+'px',height:'210px',margin:' 0 auto',zoom:'96%'}">
 
                 <div ref="bus" class="bus">

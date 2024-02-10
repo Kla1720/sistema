@@ -44,10 +44,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
-    {
-        return view('system.auth.login');
-    }
+   
 
     /**
      * Get the guard to be used during authentication.
